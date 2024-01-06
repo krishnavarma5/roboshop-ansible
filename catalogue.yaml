@@ -12,14 +12,14 @@
 
   - name: create roboshop user
     ansible.builtin.user:
-    name: roboshop
+      name: roboshop
 
   - name: craete app directory
-  ansible.builtin.file:
-    name: /app
-    state: directory
+    ansible.builtin.file:
+      name: /app
+      state: directory
 
-    
+
 
     
 

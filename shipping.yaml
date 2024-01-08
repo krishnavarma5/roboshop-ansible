@@ -5,7 +5,7 @@
     mysql_password: Roboshop@1
   tasks:
   - name: install maven
-    anisible.builtin.dnf:
+    ansible.builtin.dnf:
       name: maven
       state: present
 

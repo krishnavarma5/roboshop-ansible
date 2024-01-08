@@ -1,5 +1,5 @@
 - name: install web component
-  host: web
+  hosts: web
   become: yes
   tasks:
   - name: Install nginx

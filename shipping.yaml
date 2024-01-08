@@ -1,6 +1,8 @@
 - name: install shipping component
   hosts: shipping
   become: yes
+  vars:
+    mysql_password: Roboshop@1
   tasks:
   - name: install maven
     anisible.builtin.dnf:
@@ -40,4 +42,28 @@
   - name: rename jar file
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
     args:
-      chdir: /app      
+      chdir: /app
+
+  - name: copying shipping services
+    ansible.builtin.copy:
+      src: shipping.service
+      dest: /etc/systemd/system/shipping.service
+
+  - name: deamon reload
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+
+  - name: install mysql client
+    anisible.builtin.dnf:
+      name: mysql
+      state: present
+
+
+  - name: check cities schema exists or not
+    ansible.buildin.command: mysql -h mysql.76sdevops.website -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'CITIES'
+    register: schema
+
+  - name: print output
+    ansible.builtin.debug:
+      msg: "schema output: {{schema}}"         
+

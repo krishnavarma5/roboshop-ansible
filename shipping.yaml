@@ -60,7 +60,7 @@
 
 
   - name: check cities schema exists or not
-    ansible.buildin.command: mysql -h mysql.76sdevops.website -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'CITIES'
+    ansible.buildin.command: mysql -h mysql.76sdevops.website -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'CITIES'"
     register: schema
 
   - name: print output

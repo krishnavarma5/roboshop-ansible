@@ -62,8 +62,8 @@
       name: mongodb-org-shell
       state: present 
 
-  - name: get he catogories count
-    ansible.builtin.command: mongo --host mongodb.76sdevops.website --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()' 
+  - name: get the catogories count
+    ansible.builtin.shell: mongo --host mongodb.76sdevops.website --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()' 
     register: product_count
 
   # - name: print the count
@@ -71,7 +71,7 @@
   #     msg: "product count: {{product_count}}"
 
   - name: load catalogue data
-    ansible.builtin.shell: mongo --host mongodb.76sdevops.website < /app/schema/catalogue.js        
+    ansible.builtin.command: mongo --host mongodb.76sdevops.website < /app/schema/catalogue.js        
     when: product_count.stdout == "0"
 
   - name: start and enable catalogue
